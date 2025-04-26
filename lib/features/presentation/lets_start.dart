@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/localization/app_string.dart';
 import '../../core/utils/app_assets.dart';
 import '../../core/widgets/inputs/Default.dart';
-import '../auth/register_view.dart';
+import '../auth/view/register_view.dart';
 
 
 class Lets extends StatefulWidget {

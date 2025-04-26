@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../core/utils/app_assets.dart';
-import '../../core/utils/app_colors.dart';
+import '../../../core/utils/app_assets.dart';
+import '../../../core/utils/app_colors.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class RegisterView extends StatelessWidget {
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +11,13 @@ class Login extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
+            // تعديل هنا
             Container(
-              height: 298,
-              width: double.infinity,
+              height: 298, // تحديد الارتفاع
+              width: double.infinity, // العرض الكامل
               child: Image.asset(
                 AppAssets.flag,
-                fit: BoxFit.cover,
+                fit: BoxFit.cover, // التأكد من تغطية الصورة بشكل كامل
               ),
             ),
             const SizedBox(height: 30),
@@ -28,9 +29,10 @@ class Login extends StatelessWidget {
                 children: [
                   _buildPasswordField('User Name'),
                   const SizedBox(height: 20),
-                  _buildPasswordField('Password'),
+                  _buildPasswordField('New Password'),
                   const SizedBox(height: 20),
-
+                  _buildPasswordField('Confirm Password'),
+                  const SizedBox(height: 40),
                   _buildSaveButton(),
                 ],
               ),
@@ -66,6 +68,7 @@ class Login extends StatelessWidget {
     );
   }
 
+
   Widget _buildSaveButton() {
     return SizedBox(
       width: double.infinity,
@@ -79,7 +82,7 @@ class Login extends StatelessWidget {
           ),
         ),
         child: const Text(
-          'Login',
+          'Register',
           style: TextStyle(
             color: Colors.white,
             fontSize: 16,
