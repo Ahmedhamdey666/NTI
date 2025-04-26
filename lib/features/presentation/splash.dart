@@ -1,20 +1,26 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/utils/app_assets.dart';
-import 'package:todo_app/core/utils/app_colors.dart';
+import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // لإظهار SVG
 
-class SplashScreen extends StatefulWidget {
+import '../../core/constant/app_constant.dart';
+import '../../core/utils/app_assets.dart';
+import '../../core/utils/app_colors.dart';
+import 'lets_start.dart';
+
+class Splash extends StatefulWidget {
+  const Splash({super.key});
+
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _OnboardingState createState() => _OnboardingState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _OnboardingState extends State<Splash> {
   @override
   void initState() {
     super.initState();
+
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/home');
+      Get.off(() => Lets(), transition: Transition.fade, duration: Duration(milliseconds: 500));
     });
   }
 
@@ -22,7 +28,26 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset('assets/logo.png'),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+
+            SvgPicture.asset(
+              AppAssets.splash,
+              width: 200,
+              height: 200,
+            ),
+            const SizedBox(height: 30),
+            Text(
+              AppConstant.app_name,
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 36,
+                color: AppColors.primary,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

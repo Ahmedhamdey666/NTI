@@ -1,91 +1,92 @@
-// ignore_for_file: must_be_immutable, avoid_print, prefer_const_constructors_in_immutables
-
 import 'package:flutter/material.dart';
-
 import '../../core/utils/app_assets.dart';
-import '../../core/widgets/inputs/Default.dart';
+import '../../core/utils/app_colors.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
-
-  @override
-  void dispose() {
-    usernameController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    super.dispose();
-  }
-
-  void _submitForm() {
-    final username = usernameController.text.trim();
-    final password = passwordController.text;
-    final confirmPassword = confirmPasswordController.text;
-
-    if (username.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
-      _showError('من فضلك املأ كل الحقول');
-    } else if (password != confirmPassword) {
-      _showError('كلمة المرور وتأكيدها غير متطابقين');
-    } else {
-      // هنا تقدر تبعت البيانات للسيرفر أو تعمل أي منطق تسجيل دخول
-      print('Username: $username');
-      print('Password: $password');
-    }
-  }
-
-  void _showError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message, style: const TextStyle(color: Colors.white)),
-        backgroundColor: Colors.red,
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
+class RegisterView extends StatelessWidget {
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-        centerTitle: true,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // تعديل هنا
+            Container(
+              height: 298, // تحديد الارتفاع
+              width: double.infinity, // العرض الكامل
+              child: Image.asset(
+                AppAssets.flag,
+                fit: BoxFit.cover, // التأكد من تغطية الصورة بشكل كامل
+              ),
+            ),
+            const SizedBox(height: 30),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildPasswordField('User Name'),
+                  const SizedBox(height: 20),
+                  _buildPasswordField('New Password'),
+                  const SizedBox(height: 20),
+                  _buildPasswordField('Confirm Password'),
+                  const SizedBox(height: 40),
+                  _buildSaveButton(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-          child: Column(
-            children: [
-              DefaulTextFormField2(
-                H: 'Username',
-                secure: false,
-                controller: usernameController,
-              ),
-              const SizedBox(height: 15),
-              DefaulTextFormField2(
-                H: 'Password',
-                secure: true,
-                controller: passwordController,
-              ),
-              const SizedBox(height: 15),
-              DefaulTextFormField2(
-                H: 'Confirm Password',
-                secure: true,
-                controller: confirmPasswordController,
-              ),
-              const SizedBox(height: 30),
-              Button(
-                text: 'Register',
-                onPressed: _submitForm,
-              ),
-            ],
+    );
+  }
+
+  Widget _buildPasswordField(String label) {
+    return TextFormField(
+      obscureText: true,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(
+          color: AppColors.grey,
+          fontSize: 14,
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: AppColors.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: AppColors.primary),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      ),
+    );
+  }
+
+
+  Widget _buildSaveButton() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        child: const Text(
+          'Register',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
